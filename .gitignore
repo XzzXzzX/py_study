@@ -1,0 +1,6 @@
+# 设置git提交忽略的文件、目录
+# .git .gitee目录及文件
+.git
+.gitee
+
+
