@@ -3,7 +3,7 @@
 # 
 # xuan
 # 2018-11-26 11:36:22
-# 文件处理
+# file_handle.py文件处理
 # 
 
 import os, sys

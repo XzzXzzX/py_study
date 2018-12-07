@@ -20,7 +20,6 @@ else:  #Python 3.x
     from tkinter.font import Font
     from tkinter.ttk import *
     from tkinter.messagebox import *
-    import tkinter.filedialog as filedialog
     #import tkinter.filedialog as tkFileDialog
     #import tkinter.simpledialog as tkSimpleDialog    #askstring()
 
@@ -73,28 +72,27 @@ class Application(Application_ui):
     #这个类实现具体的事件处理回调函数。界面生成代码在Application_ui中。
     def __init__(self, master=None):
         Application_ui.__init__(self, master)
-        self.isMoveFile = False # 是否是移动文件操作
-        self.isCreateTime = True # 是否是以创建时间为分类
+        # self.isMoveFile = False # 是否是移动文件操作
+        # self.isCreateTime = True # 是否是以创建时间为分类
 
     def check_move_Cmd(self, event=None):
-        self.isMoveFile = True
+        print("Application.check_move_Cmd()")
         pass
 
     def check_copy_Cmd(self, event=None):
-        self.isMoveFile = False
+        print("Application.check_move_Cmd()")
         pass
 
     def Btn_handle_Cmd(self, event=None):
-        self.isMoveFile = self.isMoveFile or False
-        create_dic(self.Text1Var.get(), self.isMoveFile)
-        messagebox.showinfo("Tips", "文件整理完成")
-
-    def Btn_open_Cmd(self, event=None):
-        self.Text1Var.set(filedialog.askdirectory())
+        print("Application.check_move_Cmd()")
         pass
 
-if __name__ == "__main__":
-    top = Tk()
-    Application(top).mainloop()
-    try: top.destroy()
-    except: pass
+    def Btn_open_Cmd(self, event=None):
+        print("Application.check_move_Cmd()")
+        pass
+
+# if __name__ == "__main__":
+#     top = Tk()
+#     Application(top).mainloop()
+#     try: top.destroy()
+#     except: pass
