@@ -6,7 +6,7 @@
 import base64
 
 class mybase64(object):
-    def __init(self):
+    def __init__(self):
         pass   
 
     def imgToBase64(self, imgPath):
