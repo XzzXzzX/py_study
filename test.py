@@ -10,6 +10,7 @@ from email.mime.text import MIMEText
 # smtplib 用于邮件的发信动作
 import smtplib
 from pydub import AudioSegment
+from myClass.TimeUtil import timeUtil
 
 import base64
 
@@ -68,6 +69,8 @@ if __name__ == "__main__":
     # # testWav(wavPath)
     # print(dir(song))
     # print(str(song.channels))
+    # testMail()
 
-    testMail()
+    print(timeUtil.secondsToStr(3600))
+    print('{0} {1}'.format('aaa', 'ccc'))
     pass

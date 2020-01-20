@@ -40,7 +40,7 @@ class MobileUtil(object):
         点击屏幕  
         @pos {x,y} 点击的位置
         """
-        cmd = str.format('adb shell input tap {1} {2}', pos.x, pos.y)
+        cmd = str.format('adb shell input tap {0} {1}', pos.x, pos.y)
         os.popen(cmd)
         pass
 
