@@ -11,8 +11,11 @@ from email.mime.text import MIMEText
 import smtplib
 from pydub import AudioSegment
 from myClass.TimeUtil import timeUtil
+from myClass.Md5Help import Md5Helper
 
 import base64
+
+import os
 
 
 def testWav(filePath):
@@ -73,4 +76,7 @@ if __name__ == "__main__":
 
     print(timeUtil.secondsToStr(3600))
     print('{0} {1}'.format('aaa', 'ccc'))
+
+    dirName = os.path.dirname(__file__)
+    print('md5: ' + Md5Helper.get_file_md5(dirName + '/test.py'))
     pass

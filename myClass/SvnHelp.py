@@ -9,6 +9,7 @@
 
 import os
 import sys
+import threading
 
 
 class SvnHelp(object):
@@ -16,16 +17,24 @@ class SvnHelp(object):
     svn 命令帮助类
 
     """
+    _instance_lock = threading.Lock()
 
     def __init__(self):
         pass
 
+    def __new__(self):
+        if (not hasattr(SvnHelp, '_instance')):
+            with SvnHelp._instance_lock:
+                if (not hasattr(SvnHelp, '_instance')):
+                    SvnHelp._instance = object.__new__(self)
+        return SvnHelp._instance
+
     def checkout(self, username, svnUrl, targetPath):
         """
         svn checkout 检出  
-        username svn账号
-        svnUrl svn 地址  
-        targetPath 本地目录  
+        @username svn账号  
+        @svnUrl svn 地址  
+        @targetPath 本地目录  
         """
         cmd = 'svn co --username {0} {1} {2}'.format(
             username, svnUrl, targetPath)
