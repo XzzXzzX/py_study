@@ -66,6 +66,13 @@ def testMail():
         print("Error: 无法发送邮件", smtplib.SMTPAuthenticationError)
 
 
+def testFor():
+    s = {"a": 'aa', "b": 'bb'}
+    for v in s:
+        print('===>%s %s' % (v, s[v]))
+    pass
+
+
 if __name__ == "__main__":
     # wavPath = 'C:\\Users\\User\\Desktop\\temp\\music/01 爱在西元前.wav'
     # song = AudioSegment.from_wav(wavPath)
@@ -78,5 +85,18 @@ if __name__ == "__main__":
     print('{0} {1}'.format('aaa', 'ccc'))
 
     dirName = os.path.dirname(__file__)
-    print('md5: ' + Md5Helper.get_file_md5(dirName + '/test.py'))
+    print('md5: ' + Md5Helper.get_file_md5(dirName + '/list.py'))
+    print('cur time: ' + str(os.path.getmtime(dirName + '/list.py')))
+    os.utime(dirName + '/list.py')
+    print('cur time11: ' + str(os.path.getmtime(dirName + '/list.py')))
+
+    print('修改时间 md5: ' + Md5Helper.get_file_md5(dirName + '/list.py'))
+
+    # {3, 4, 22, '8', "原生包231", 5, '5-1', '6', '6-1'}
+    testList = {3, 4, 22, '8', "原生包231", 5, '5-1', '6', '6-1'}
+
+    # for i, value in enumerate(testList):
+    #     print(str(i), str(value))
+    testFor()
+
     pass
