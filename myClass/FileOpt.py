@@ -11,6 +11,18 @@ import shutil
 import time
 import zipfile
 import json
+import urllib2
+import hashlib
+
+from enum import Enum
+
+
+class CONTENT_MATCH_TYPE(Enum):
+    """
+    文本匹配类型  
+    """
+    ALL = 0  # 全词匹配
+    INCLUDE = 1  # 包含匹配
 
 
 class MyFileOpt(object):
@@ -134,25 +146,71 @@ class MyFileOpt(object):
                                 indent=4).encode('utf-8') + '\n')
         pass
 
-    def fixContent(self, fileName, oldStr, newStr):
+    def fixContent(self, fileName, matchStr, newStr, matchMode=CONTENT_MATCH_TYPE.ALL):
         '''
-        修改文件内容
+        修改文件内容  
         @fileName 文件名(路径)  
-        @oldStr 原本的文本
+        @matchStr 原本的文本  
         @newStr 替换后的文本  
+        @matchMode 匹配模式 0=全词匹配， 1=包含匹配  
         '''
-        retStrs = ''
         with open(fileName, 'r') as f:
             with open(fileName+'.tmp', 'w') as f2:
                 for line in f:
-                    line = line.replace(oldStr, newStr)
+                    if (matchMode == CONTENT_MATCH_TYPE.ALL):
+                        line = line.replace(matchStr, newStr)
+                    elif (matchMode == CONTENT_MATCH_TYPE.INCLUDE):
+                        if (matchStr in line):
+                            line = newStr
                     f2.write(line)
 
         os.remove(fileName)
         os.rename(fileName+'.tmp', fileName)
-        pass
-        return retStrs
 
+    def downloadFile(self, url, localPath=''):
+        """
+        下载文件  
+        @url 远程地址  
+        @localPath 本地保存地址
+        """
+        print("=====> url:", url)
+        # url = 'http://download.redis.io/releases/redis-5.0.5.tar.gz'
+
+        try:
+            f = urllib2.urlopen(url)
+            data = f.read()
+            if (localPath):
+                with open(localPath, "wb") as code:
+                    code.write(data)
+            print("=====> download finish")
+        except Exception as e:
+            print('=====>!!!!! download fail:', e)
+            pass
+
+    def getFileMD5(self, filePath, returnSub=0):
+        '''
+        获取文件的md5码
+        @prama filePath 文件路径  
+        @prama returnSub 返回的md5 码，从第0位开始，需要取几位  
+        '''
+        sys.stdout.flush()
+        m = hashlib.md5()
+        with open(filePath, 'rb') as f:
+            for line in f:
+                m.update(line)
+
+        # print('=====>md5 str: ' + str(m))
+        md5_code = m.hexdigest()
+        print('=====>md5: ' + str(md5_code))
+        sys.stdout.flush()
+        ret = md5_code
+        if (returnSub > 0):
+            ret = md5_code[0: returnSub]
+
+        return ret
+
+
+FileOpt = MyFileOpt()
 
 # def send_windows(exStr=''):
 #     # # 弹窗
